@@ -1,3 +1,4 @@
+#include <iostream>
 #include <windows.h>
 #include <stdio.h>
 
@@ -35,5 +36,6 @@ void ShowDesktop()
 
 int main()
 {
+    Sleep(1000);;
     ShowDesktop();
 }
