@@ -3,7 +3,7 @@
 #include <windows.h>
 
 
-void mouseClick(int x, int y) {
+void mouseMove(int x, int y) {
 
 INPUT input;
 input.type = INPUT_MOUSE;
@@ -15,8 +15,23 @@ SendInput(1, &input, sizeof(input));
 }
 
 
+void mouseClick() {
+
+    INPUT ip = {};
+
+    ip.mi.dwFlags = (MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_LEFTDOWN);
+    SendInput(1, &ip, sizeof(INPUT));
+
+    Sleep(10);
+
+    ip.mi.dwFlags = (MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_LEFTUP);
+    SendInput(1, &ip, sizeof(INPUT));
+
+}
 int main() {
 
-mouseClick(22,900);
+Sleep(3000);
+mouseMove(22,900);
+mouseClick();
 
 }
