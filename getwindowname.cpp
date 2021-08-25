@@ -9,7 +9,13 @@ string GetActiveWindowTitle()
  HWND hwnd=GetForegroundWindow(); // get handle of currently active window
  GetWindowText(hwnd,wnd_title,sizeof(wnd_title));
     std::cout << wnd_title << std::endl;
- return wnd_title;
+    if ( wnd_title == "test") {
+        return wnd_title;
+    }
+    else {
+        std::cout << "error" << std::endl;
+    }
+    
 }
 
 int main()
