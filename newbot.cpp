@@ -11,8 +11,31 @@ DWORD keybindALT = 0x12;
 DWORD keybindTAB = 0x09;
 DWORD keybindWIN = 0x5B;
 
+void showDesktop() {
+    INPUT ip = {};
 
-void keyPressTilde() {
+    // press WIN
+    ip.type = INPUT_KEYBOARD;
+	ip.ki.wVk = keybindWIN; // virtual-key code for the key
+	SendInput(1, &ip, sizeof(INPUT));
+
+    // press D
+    ip.ki.wVk = keybindD;
+    SendInput(1, &ip, sizeof(INPUT));
+
+    // release D
+	ip.ki.dwFlags = KEYEVENTF_KEYUP; // KEYEVENTF_KEYUP for key release
+	SendInput(1, &ip, sizeof(INPUT));
+
+    // release ALT
+    ip.ki.wVk = keybindWIN;
+    ip.ki.dwFlags = KEYEVENTF_KEYUP;
+    // 
+    SendInput(1, &ip, sizeof(INPUT));
+};
+
+
+void altTab2Times() {
     INPUT ip = {};
 
     // press ALT
@@ -29,6 +52,7 @@ void keyPressTilde() {
 	ip.ki.dwFlags = KEYEVENTF_KEYUP; // KEYEVENTF_KEYUP for key release
 	SendInput(1, &ip, sizeof(INPUT));
 
+    Sleep(1000);;
     // release ALT
     ip.ki.wVk = keybindALT;
     ip.ki.dwFlags = KEYEVENTF_KEYUP;
@@ -40,7 +64,9 @@ void keyPressTilde() {
 int main()
 {
     Sleep(3000);;
-    keyPressTilde();
+    altTab2Times();
+    Sleep(1000);;
+    showDesktop();
 
     //releaseCTRL();
 

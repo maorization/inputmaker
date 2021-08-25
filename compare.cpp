@@ -2,73 +2,40 @@
 #include <windows.h>
 #include <stdio.h>
 
-DWORD keybindA = 0x41;
-DWORD keybindC = 0x43;
-DWORD keybindV = 0x56;
-DWORD keybindCTRL = 0x11;
+DWORD keybind = 0x44;
 
-void ctrlA()
+
+void ShowDesktop()
 {
+    //OutputString(L"Sending 'Win-D'\r\n");
     INPUT inputs[4] = {};
     ZeroMemory(inputs, sizeof(inputs));
 
     inputs[0].type = INPUT_KEYBOARD;
-    inputs[0].ki.wVk = keybindCTRL;
-
+    inputs[0].ki.wVk = VK_LWIN;
+   
     inputs[1].type = INPUT_KEYBOARD;
-    inputs[1].ki.wVk = keybindA;
+    inputs[1].ki.wVk = keybind;
 
     inputs[2].type = INPUT_KEYBOARD;
-    inputs[2].ki.wVk = keybindA;
+    inputs[2].ki.wVk = keybind;
     inputs[2].ki.dwFlags = KEYEVENTF_KEYUP;
 
     inputs[3].type = INPUT_KEYBOARD;
-    inputs[3].ki.wVk = keybindCTRL;
+    inputs[3].ki.wVk = VK_LWIN;
     inputs[3].ki.dwFlags = KEYEVENTF_KEYUP;
 
     UINT uSent = SendInput(ARRAYSIZE(inputs), inputs, sizeof(INPUT));
+    if (uSent != ARRAYSIZE(inputs))
+    {
+        //OutputString(L"SendInput failed: 0x%x\n", HRESULT_FROM_WIN32(GetLastError()));
+    } 
+}
 
-};
-
-
-
-void pressA()
-{
-INPUT inputs[1] = {};
-    ZeroMemory(inputs, sizeof(inputs));
-
-    inputs[0].type = INPUT_KEYBOARD;
-    inputs[0].ki.wVk = keybindA;
-
-    inputs[1].type = INPUT_KEYBOARD;
-    inputs[1].ki.wVk = keybindA;
-    inputs[1].ki.dwFlags = KEYEVENTF_KEYUP;
-
-    UINT uSent = SendInput(ARRAYSIZE(inputs), inputs, sizeof(INPUT));
-};
-
-void pressSpace()
-{
-INPUT inputs[1] = {};
-    ZeroMemory(inputs, sizeof(inputs));
-
-    inputs[0].type = INPUT_KEYBOARD;
-    inputs[0].ki.wVk = VK_SPACE;
-
-    inputs[1].type = INPUT_KEYBOARD;
-    inputs[1].ki.wVk = VK_SPACE;
-    inputs[1].ki.dwFlags = KEYEVENTF_KEYUP;
-
-    UINT uSent = SendInput(ARRAYSIZE(inputs), inputs, sizeof(INPUT));
-};
 
 
 int main()
 {
-    Sleep(5000);;
-    ctrlA();
-    pressSpace();
-    pressA();
-    //releaseCTRL();
-
+    Sleep(1000);;
+    ShowDesktop();
 }
