@@ -32,6 +32,11 @@ int main() {
 
 Sleep(3000);
 mouseMove(22,900);
+Sleep(1000);
+mouseClick();
+Sleep(1000);
+mouseMove(363,905);
+Sleep(1000);
 mouseClick();
 
 }
