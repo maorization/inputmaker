@@ -4,12 +4,13 @@
 
 DWORD keybindA = 0x41;
 DWORD keybindC = 0x43;
-DWORD keybindD = 0x44;
+
 DWORD keybindV = 0x56;
 DWORD keybindCTRL = 0x11;
 DWORD keybindALT = 0x12;
 DWORD keybindTAB = 0x09;
 DWORD keybindWIN = 0x5B;
+DWORD keybindD = 0x44;
 
 void showDesktop() {
     INPUT ip = {};
