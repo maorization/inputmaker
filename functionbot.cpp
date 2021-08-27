@@ -12,19 +12,7 @@ DWORD keybindTAB = 0x09;
 DWORD keybindWIN = 0x5B;
 DWORD x = 0x58;
 
-void keyStroke(DWORD x) {
-    INPUT ip = {};
 
-    // press X
-    ip.type = INPUT_KEYBOARD;
-	ip.ki.wVk = x; // virtual-key code for the key
-	SendInput(1, &ip, sizeof(INPUT));
-
-    // release X
-	ip.ki.dwFlags = KEYEVENTF_KEYUP; // KEYEVENTF_KEYUP for key release
-	SendInput(1, &ip, sizeof(INPUT));
-
-};
 
 void keyStroke(DWORD x) {
     INPUT ip = {};
@@ -52,6 +40,8 @@ void holdALT() {
 };
 
 void releaseALT() {
+    INPUT ip = {};
+
     // release ALT
     ip.ki.wVk = ALT;
     ip.ki.dwFlags = KEYEVENTF_KEYUP;
