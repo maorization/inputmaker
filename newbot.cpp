@@ -1,74 +1,23 @@
+#define UNICODE
 #include <iostream>
 #include <windows.h>
-#include <stdio.h>
-
-DWORD keybindA = 0x41;
-DWORD keybindC = 0x43;
-
-DWORD keybindV = 0x56;
-DWORD keybindCTRL = 0x11;
-DWORD keybindALT = 0x12;
-DWORD keybindTAB = 0x09;
-DWORD keybindWIN = 0x5B;
-DWORD keybindD = 0x44;
-
-void showDesktop() {
-    INPUT ip = {};
-
-    // press WIN
-    ip.type = INPUT_KEYBOARD;
-	ip.ki.wVk = keybindWIN; // virtual-key code for the key
-	SendInput(1, &ip, sizeof(INPUT));
-
-    // press D
-    ip.ki.wVk = keybindD;
-    SendInput(1, &ip, sizeof(INPUT));
-
-    // release D
-	ip.ki.dwFlags = KEYEVENTF_KEYUP; // KEYEVENTF_KEYUP for key release
-	SendInput(1, &ip, sizeof(INPUT));
-
-    // release ALT
-    ip.ki.wVk = keybindWIN;
-    ip.ki.dwFlags = KEYEVENTF_KEYUP;
-    // 
-    SendInput(1, &ip, sizeof(INPUT));
-};
+#include <string>
+using namespace std;
 
 
-void altTab2Times() {
-    INPUT ip = {};
+// function declaration:
+void printElem(int arr[], int size);
 
-    // press ALT
-    ip.type = INPUT_KEYBOARD;
-	ip.ki.wVk = keybindALT; // virtual-key code for the key
-	SendInput(1, &ip, sizeof(INPUT));
+int main () {
+   // an int array with 5 elements.
+   int balance[5] = {1000, 2, 3, 17, 50};
+   double avg;
 
-    // press TAB 2 times
-    ip.ki.wVk = keybindTAB;
-    SendInput(1, &ip, sizeof(INPUT));
-    SendInput(1, &ip, sizeof(INPUT));
-
-    // release TAB
-	ip.ki.dwFlags = KEYEVENTF_KEYUP; // KEYEVENTF_KEYUP for key release
-	SendInput(1, &ip, sizeof(INPUT));
-
-    Sleep(1000);;
-    // release ALT
-    ip.ki.wVk = keybindALT;
-    ip.ki.dwFlags = KEYEVENTF_KEYUP;
-    // 
-    SendInput(1, &ip, sizeof(INPUT));
-};
-
-
-int main()
-{
-    Sleep(3000);;
-    altTab2Times();
-    Sleep(1000);;
-    showDesktop();
-
-    //releaseCTRL();
-
+   // pass pointer to the array as an argument.
+   avg = getAverage( balance, 5 ) ;
+ 
+   // output the returned value 
+   cout << "Average value is: " << avg << endl; 
+    
+   return 0;
 }
