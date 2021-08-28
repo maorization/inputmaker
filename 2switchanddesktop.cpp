@@ -10,7 +10,8 @@ void switchToTerminal() {
 HWND hWnd = ::FindWindow(NULL, L"192.168.1.23 - Remote Desktop Connection");
 if (hWnd) {
     // move to foreground
-    ::ShowWindow(hWnd,3);
+    ::ShowWindow(hWnd,1);
+    Sleep(1000);
 }
 };
 
@@ -41,6 +42,7 @@ void showDesktop() {
 
 
 int main() {
+
 
     Sleep(1500);
     switchToTerminal();

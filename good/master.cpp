@@ -4,7 +4,14 @@
 #include <string>
 using namespace std;
 
+DWORD ESC = 0x1B;
+DWORD DEL = 0x2E;
+DWORD BREAK = 0x03;
+DWORD SHIFT = 0xA0;
+DWORD END = 0x23;
+DWORD CTRL = 0x11;
 DWORD ALT = 0x12;
+DWORD PAUSE = 0x13;
 DWORD TAB = 0x09;
 DWORD WIN = 0x5B;
 DWORD D = 0x44;
@@ -44,13 +51,24 @@ INPUT ip = {};
     SendInput(1, &ip, sizeof(INPUT));
 }
 
+void findTerminal() {
+    HWND hWnd = ::FindWindow(NULL, L"192.168.1.23 - Remote Desktop Connection");
+                while (hWnd == NULL) {
+                hWnd = FindWindow(NULL, L"192.168.1.23 - Remote Desktop Connection");
+                std::cout << "Start terminal" << std::endl;
+                Sleep(1000);
+            }
+}
+
 void switchToTerminal() {
 HWND hWnd = ::FindWindow(NULL, L"192.168.1.23 - Remote Desktop Connection");
 if (hWnd) {
     // move to foreground
-    ::ShowWindow(hWnd,3);
+    ::ShowWindow(hWnd,1);
 }
 };
+
+
 
 bool isFullscreen(HWND windowHandle)
 {
@@ -67,14 +85,55 @@ bool isFullscreen(HWND windowHandle)
         && windowRect.bottom == monitorInfo.rcMonitor.bottom;
 }
 
+void goFullScreen() {
+    HWND hWnd = ::FindWindow(NULL, L"192.168.1.23 - Remote Desktop Connection");
+
+     while (isFullscreen(hWnd) == false) {
+        SetForegroundWindow(hWnd);
+        hold(CTRL);
+        hold(ALT);
+        keyStroke(BREAK);
+        release(ALT);
+        release(CTRL);
+        Sleep(1000);
+          
+      }
+}
+
+void showDesktop() {
+    INPUT ip = {};
+
+    // press WIN
+    ip.type = INPUT_KEYBOARD;
+	ip.ki.wVk = WIN; // virtual-key code for the key
+	SendInput(1, &ip, sizeof(INPUT));
+
+    // press D
+    ip.ki.wVk = D;
+    SendInput(1, &ip, sizeof(INPUT));
+
+    // release D
+	ip.ki.dwFlags = KEYEVENTF_KEYUP; // KEYEVENTF_KEYUP for key release
+	SendInput(1, &ip, sizeof(INPUT));
+
+    // release ALT
+    ip.ki.wVk = WIN;
+    ip.ki.dwFlags = KEYEVENTF_KEYUP;
+    // 
+    SendInput(1, &ip, sizeof(INPUT));
+};
+
 int main()
 {
-    Sleep(1000);
-    HWND hWnd = ::FindWindow(NULL, L"192.168.1.23 - Remote Desktop Connection");
-    Sleep(1500);
-    while (isFullscreen(hWnd) == false) {
-        Sleep(1000);
-        cout << "not full screen" << endl;
-    }
+    
+    findTerminal();
+    switchToTerminal();
+    goFullScreen();
+    
+
+  
+
+    // keyStroke(D);
+
 
 }
