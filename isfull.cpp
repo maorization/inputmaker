@@ -2,7 +2,7 @@
 #include <iostream>
 #include <windows.h>
 #include <string>
-
+using namespace std;
 
 bool isFullscreen(HWND windowHandle)
 {
@@ -26,5 +26,12 @@ Sleep(2000);
 HWND hWnd = GetForegroundWindow();
 
 printf ( "%d\n", isFullscreen(hWnd));
+
+if (isFullscreen(hWnd) == false) {
+    cout << "true" << endl;
+}
+else {
+    cout << "false" << endl;
+}
 
 }
