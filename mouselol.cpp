@@ -41,11 +41,34 @@ void RightMouseClick() {
     SendInput(1, &ip, sizeof(INPUT));
 
 }
+
+
+void LoopAll() {
+
+mouseMove(782,963);
+Sleep(10);
+LeftMouseClick();
+Sleep(10);
+mouseMove(845,966);
+Sleep(10);
+LeftMouseClick();
+Sleep(10);
+mouseMove(904,973);
+Sleep(10);
+LeftMouseClick();
+Sleep(10);
+mouseMove(1069,969);
+Sleep(10);
+LeftMouseClick();
+
+}
+
 int main() {
 
-Sleep(3000);
-// mouseMove(22,900);
-
-RightMouseClick();
+    while (true) {
+        if (GetAsyncKeyState(VK_SPACE)) {
+            LoopAll();
+        }
+    }
 
 }
