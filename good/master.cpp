@@ -100,28 +100,7 @@ void goFullScreen() {
       }
 }
 
-void showDesktop() {
-    INPUT ip = {};
 
-    // press WIN
-    ip.type = INPUT_KEYBOARD;
-	ip.ki.wVk = WIN; // virtual-key code for the key
-	SendInput(1, &ip, sizeof(INPUT));
-
-    // press D
-    ip.ki.wVk = D;
-    SendInput(1, &ip, sizeof(INPUT));
-
-    // release D
-	ip.ki.dwFlags = KEYEVENTF_KEYUP; // KEYEVENTF_KEYUP for key release
-	SendInput(1, &ip, sizeof(INPUT));
-
-    // release ALT
-    ip.ki.wVk = WIN;
-    ip.ki.dwFlags = KEYEVENTF_KEYUP;
-    // 
-    SendInput(1, &ip, sizeof(INPUT));
-};
 
 int main()
 {
@@ -129,6 +108,11 @@ int main()
     findTerminal();
     switchToTerminal();
     goFullScreen();
+    Sleep(1500);
+    hold(WIN);
+    keyStroke(D);
+    release(WIN);
+    
     
 
   
